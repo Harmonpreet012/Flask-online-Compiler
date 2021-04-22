@@ -3,7 +3,14 @@
     <h1>Welcome to C++ online compiler(alpha build)</h1>
     <form action="/compile" method="POST" >
         
-        <textarea name="code" id="code-box" value="Enter code here"></textarea><br>
+        <textarea name="code" id="code-box" >
+#include<iostream>
+using namespace std;
+int main()
+{
+cout<<"hello world";
+return 0;
+}</textarea><br>
         <button  id="output-button" type="submit">Compile</button>
     </form>
 
@@ -11,11 +18,39 @@
         <p id="output-box">Please compile to show output</p>
     </div> -->
     <br>
+    <button onClick="SwitchTheme()">Switch theme?</button>
     Reach me out at: github.com/Harmonpreet012
-
 </body>
 </html>
+<script>
+    i=1;
+    function SwitchTheme()
+    {
+        if(i==1)
+        {
+            i=0;
+            document.body.style.color='White';
+            document.body.style.backgroundColor='Black';
+            document.getElementById('code-box').style.color = 'white';
+            document.getElementById('code-box').style.backgroundColor = 'Black';
+            
+        }
+        else
+        {
+            i=1;
+            document.body.style.color='Black';
+            document.body.style.backgroundColor='White';
+            document.getElementById('code-box').style.color = 'Black';
+            document.getElementById('code-box').style.backgroundColor = 'White';
+            
+        }
+    }
+</script>
 <style>
+    body
+    {
+
+    }
     #code-box
     {
         height:40%;
