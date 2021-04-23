@@ -1,7 +1,1 @@
-/home/harmon/Desktop/Flask_c++_compiler/codes/output.cpp: In function ‘int main()’:
-/home/harmon/Desktop/Flask_c++_compiler/codes/output.cpp:5:20: error: expected ‘;’ before ‘return’
-    5 | cout<<"hello world"
-      |                    ^
-      |                    ;
-    6 |  return 0;
-      |  ~~~~~~             
+Hello

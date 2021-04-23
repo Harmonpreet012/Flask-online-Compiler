@@ -7,34 +7,70 @@ def home():
     return render_template("home.html")
     
 def compile():
-    code = request.form['code']
+    language = request.form['language']
+    if(language=='cpp'):        
+        code = request.form['code']
 
-    #writing code to file
-    code_filename = "output.cpp"
-    f = open("codes/"+code_filename, "w")
-    f.write(code)
-    f.close()
+        #writing code to file
+        code_filename = "output.cpp"
+        f = open("codes/"+code_filename, "w")
+        f.write(code)
+        f.close()
 
-    #writing output of compilation to tile
-    output_filename = code_filename+".txt"
-    f = open( "codes/"+output_filename, "w")
-    f.close()
+        #writing output of compilation to tile
+        output_filename = code_filename+".txt"
+        f = open( "codes/"+output_filename, "w")
+        f.close()
 
-    os.system("g++ "+os.getcwd()+"/codes/"+code_filename+" 2>"+ os.getcwd()+"/codes/"+output_filename)
-    f = open('codes/'+output_filename, 'r')
-    temp = f.read()
-    lines = f.readlines()
-    f.close()
+        os.system("g++ "+os.getcwd()+"/codes/"+code_filename+" 2>"+ os.getcwd()+"/codes/"+output_filename)
+        f = open('codes/'+output_filename, 'r')
+        temp = f.read()
+        f.close()
 
-    #if error exists, return errors
-    if len(temp)>0:
-        return "<h1>Error</h1><br>"+temp
+        #if error exists, return errors
+        if len(temp)>0:
+            return "<h1>Error</h1><br>"+temp
+        
+        #writing output of code to file
+        os.system('./a.out>'+os.getcwd()+"/codes/"+output_filename)
+        f = open('codes/'+output_filename, 'r')
+        output = f.read()
+        f.close()
+
+        #return output
+        return "<h1>Compiled Successfully... </h1><br>"+output
     
-    #writing output of code to file
-    os.system('./a.out>'+os.getcwd()+"/codes/"+output_filename)
-    f = open('codes/'+output_filename, 'r')
-    output = f.read()
-    f.close()
+    else:
+        code = request.form['code']
 
-    #return output
-    return "<h1>Compiled Successfully... </h1><br>"+output
+        #writing code to file
+        code_filename = "Main.java"
+        f = open("codes/"+code_filename, "w")
+        f.write(code)
+        f.close()
+        #writing output of compilation to tile
+        output_filename = code_filename+".txt"
+        f = open( "codes/"+output_filename, "w")
+        f.close()
+
+        os.system("javac "+os.getcwd()+"/codes/"+code_filename+" 2>"+ os.getcwd()+"/codes/"+output_filename)
+        print(os.getcwd()+'/codes/'+code_filename)
+        f = open('codes/'+output_filename, 'r')
+        temp = f.read()
+        lines = f.readlines()
+        f.close()
+
+        #if error exists, return errors
+        if len(temp)>0:
+            return "<h1>Error</h1><br>"+temp
+        
+        #writing output of code to file
+        os.chdir("codes")
+        os.system('java Main >'+output_filename)
+        f = open(output_filename, 'r')
+        output = f.read()
+        f.close()
+
+        #return output
+        return "<h1>Compiled Successfully... </h1><br>"+output
+
